@@ -4,16 +4,35 @@
 
 <h1>Counter</h1>
 
-<p role="status">Current count: @currentCount</p>
+<RadzenBody MouseEnter="MouseEnterEvent" MouseLeave="MouseExitEvent">
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    <p role="status">Current count: @CurrentCount</p>
+
+    <RadzenSlider Min="1" Max="10" Name="Step Size" Step="1" @bind-Value="StepCount"></RadzenSlider>
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    <RadzenBadge BadgeStyle="BadgeStyle.Primary" Text="@BadgeText"></RadzenBadge>
+    
+</RadzenBody>
 
 @code {
-    private int currentCount = 0;
+    private int CurrentCount = 0;
+    private int StepCount = 1;
+
+    private string BadgeText = "no mouse events yet";
 
     private void IncrementCount()
     {
-        currentCount++;
+        CurrentCount+=StepCount;
+    }
+
+    private void MouseEnterEvent()
+    {
+        BadgeText = "Mouse is in the card.";
+    }
+
+    private void MouseExitEvent()
+    {
+        BadgeText = "Mouse is outside of the card.";
     }
 
 }
